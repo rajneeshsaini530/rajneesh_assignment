@@ -74,7 +74,14 @@ class RegisterScreen extends StatelessWidget {
                 hint: 'Confirm Password',
                 isPassword: true,
                 validator: (value) {
-                  return Validator.validatePassword(value!);
+                  if (Validator.validatePassword(value!) != null) {
+                    return Validator.validatePassword(value!);
+                  } else if (registerViewModel.passwordController.text !=
+                      value) {
+                    return 'Password and Confirm Password must be same';
+                  } else {
+                    return null;
+                  }
                 },
               ),
               const SizedBox(
@@ -85,6 +92,7 @@ class RegisterScreen extends StatelessWidget {
                   ///Validate the form
                   if (registerViewModel.formKey.currentState!.validate()) {
                     ProgressDialog.showProgressDialog();
+
                     ///Register the user and navigate to home screen
                     registerViewModel.register().then((value) {
                       ProgressDialog.dismissProgressDialog();
@@ -115,7 +123,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                          ///Navigate to login screen
+                            ///Navigate to login screen
                             Get.to(() => const LoginScreen());
                           },
                       ),
