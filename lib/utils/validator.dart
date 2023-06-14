@@ -21,7 +21,7 @@ class Validator {
     RegExp regex = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (value.isEmpty) {
-      return 'Please enter password';
+      return 'Please enter Email';
     } else {
       if (!regex.hasMatch(value)) {
         return 'Please enter valid email!';
